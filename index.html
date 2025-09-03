@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mert Fitness - Profesyonel Kişisel Antrenman</title>
+    <meta name="description" content="Mert Fitness - İzmir'in en iyi kişisel antrenman merkezi. 2020'den beri sağlıklı yaşam için yanınızdayız.">
+    <style>
+        /* Chat message styles */
+        .chat-window {
+            font-size: 0.75em !important;
+            max-width: 300px !important;
+            border-radius: 12px !important;
+            width: 300px !important;
+        }
+
+        /* Bot messages (on the left) */
+        .chat-message[data-v-*][data-from='bot'],
+        .chat-message-from-bot,
+        .chat-message[data-from='bot'] {
+            font-size: 0.75em !important;
+            line-height: 1.4 !important;
+            padding: 10px 15px !important;
+            margin: 8px 0 !important;
+            max-width: 85%;
+            margin-right: auto !important;
+            margin-left: 10px !important;
+            background-color: #f1f1f1 !important;
+            border-radius: 15px 15px 15px 5px !important;
+            color: #333 !important;
+            float: left;
+            clear: both;
+        }
+
+        /* User messages (on the right) */
+        .chat-message[data-v-*][data-from='user'],
+        .chat-message[data-from='user'],
+        .chat-message:not([data-from]):not(.chat-message-from-bot) {
+            font-size: 0.75em !important;
+            line-height: 1.4 !important;
+            padding: 10px 15px !important;
+            margin: 8px 0 !important;
+            max-width: 85%;
+            margin-left: auto !important;
+            margin-right: 10px !important;
+            background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+            border-radius: 15px 5px 15px 15px !important;
+            color: white !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            float: right;
+            clear: both;
+        }
+
+        .chat-message-content {
+            font-size: 0.75em !important;
+        }
+
+        /* Clear floats */
+        .chat-message::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .chat-input {
+            font-size: 1.2em !important;
+            padding: 6px 10px !important;
+            color: white !important;
+            clear: both;
+        }
+
+        .chat-inputs textarea {
+            color: white !important;
+        }
+
+        .chat-message-avatar {
+            width: 24px !important;
+            height: 24px !important;
+        }
+
+        .chat-message-avatar img {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .chat-message-from-bot {
+            font-size: 0.75em !important;
+            line-height: 1.4 !important;
+            padding: 5px 8px !important;
+            margin: 4px 0 !important;
+        }
+    </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .video-banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-banner video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            z-index: -1;
+        }
+
+        .banner-content {
+            max-width: 1000px;
+            padding: 3rem;
+            background-color: transparent;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #2ecc71; /* Fresh green color */
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background-color: #27ae60; /* Darker green on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        .content-section {
+            padding: 100px 0;
+            background-color: #f5f5f5;
+        }
+
+        .content-section:nth-child(even) {
+            background-color: #fff;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .program-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .program-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .program-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .program-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0 0;
+        }
+
+        .program-card li {
+            margin: 0.8rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .program-card li:before {
+            content: '✓';
+            color: #2ecc71;
+            position: absolute;
+            left: 0;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            background-color: #2ecc71; /* Matching the green theme */
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #27ae60; /* Darker green on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Testimonial Styles */
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-rating {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-rating .far,
+        .testimonial-rating .fas.fa-star-half-alt {
+            color: #e0e0e0;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: #777;
+        }
+        
+        .author-info h4 {
+            margin: 0;
+            color: white;
+        }
+        
+        .author-info p {
+            margin: 0;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .google-reviews-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #2ecc71; /* Matching the green theme */
+            color: white !important;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .google-reviews-btn:hover {
+            background: #27ae60; /* Darker green on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        /* Neden Biz Bölümü Stilleri */
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feature {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        #neden-biz .feature h3,
+        #neden-biz .feature p {
+            color: #2c3e50;
+        }
+
+        #hakkimizda .feature h3,
+        #hakkimizda .feature p {
+            color: #f0f0f0;
+        }
+
+        .feature h3 {
+            margin: 1rem 0;
+            font-size: 1.25rem;
+        }
+
+        .feature p {
+            line-height: 1.6;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+
+        /* FAQ Styles */
+        .faq-container {
+            margin-top: 2rem;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .faq-item h3 {
+            margin: 0;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            color: white;
+        }
+        
+        /* Services Section Styles */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2.5rem;
+            width: 100%;
+        }
+        
+        .service-box {
+            position: relative;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .service-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .service-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            color: white;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+        
+        .service-content h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        
+        .service-content p {
+            margin: 0;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+            
+            .service-box {
+                height: 250px;
+            }
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #f9f9f9;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-answer p {
+            padding: 1.5rem;
+            margin: 0;
+            border-top: 1px solid #444;
+            color: #f0f0f0;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-content {
+                padding: 1.5rem;
+            }
+            
+            .features-grid,
+            .program-cards {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding: 0.5rem 0;
+            }
+            
+            .nav-links {
+                gap: 0.5rem;
+            }
+            
+            .nav-link {
+                padding: 0.3rem 0.7rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-links">
+            <a href="#anasayfa" class="nav-link">Ana Sayfa</a>
+            <a href="#neden-biz" class="nav-link">Neden Biz?</a>
+            <a href="#hizmetler" class="nav-link">Hizmetler</a>
+            <a href="#programlar" class="nav-link">Programlarımız</a>
+            <a href="#hakkimizda" class="nav-link">Hakkımızda</a>
+            <a href="#iletisim" class="nav-link">İletişim</a>
+        </div>
+    </nav>
+
+    <section id="anasayfa" class="video-banner">
+        <video autoplay muted loop>
+            <source src="videos/5319759-Uhd 3840 2160 25Fps.mp4">
+        </video>
+        <div class="banner-content">
+            <h1>Mert Fitness</h1>
+            <p>Sağlıklı yaşam yolculuğunuzda yanınızdayız</p>
+            <a href="#iletisim" class="cta-button">Ücretsiz Danışmanlık Al</a>
+        </div>
+        <a href="#neden-biz" class="scroll-down">↓</a>
+    </section>
+
+    <section id="neden-biz" class="content-section">
+        <div class="content-wrapper">
+            <h2>Neden Mert Fitness'ı Tercih Etmelisiniz?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Uzman Eğitmenler</h3>
+                    <p>Sertifikalı ve deneyimli eğitmenlerimizle kişiye özel programlar</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h3>7/24 Açık</h3>
+                    <p>Size uygun saatlerde antrenman yapma özgürlüğü</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-user-edit"></i>
+                    <h3>Kişiye Özel Program</h3>
+                    <p>Hedeflerinize uygun kişiselleştirilmiş antrenman planları</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Başarı Garantisi</h3>
+                    <p>%100 müşteri memnuniyeti ve başarı odaklı çalışma prensibi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hizmetler" class="content-section" style="padding: 0;">
+        <div style="background-color: #f9f9f9; padding: 100px 0; width: 100%;">
+            <div class="content-wrapper">
+                <h2>Hizmetlerimiz</h2>
+                <p class="section-subtitle">Size özel hazırlanan programlarımızla hedeflerinize ulaşmanızı sağlıyoruz</p>
+            
+            <div class="services-grid">
+                <!-- Sol Üst Kutu -->
+                <div class="service-box" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('photos/kisiselantrenman.jpeg');">
+                    <div class="service-content">
+                        <h3>Kişisel Antrenman</h3>
+                        <p>Uzman eğitmenler eşliğinde kişiye özel antrenman programları</p>
+                    </div>
+                </div>
+                
+                <!-- Sağ Üst Kutu -->
+                <div class="service-box" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('photos/grupdersleri.jpg')">
+                    <div class="service-content">
+                        <h3>Grup Dersleri</h3>
+                        <p>Eğlenceli ve motive edici grup çalışmaları</p>
+                    </div>
+                </div>
+                
+                <!-- Sol Alt Kutu -->
+                <div class="service-box" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('photos/beslenme.jpg');">
+                    <div class="service-content">
+                        <h3>Beslenme Danışmanlığı</h3>
+                        <p>Kişiye özel beslenme programları ve danışmanlık hizmeti</p>
+                    </div>
+                </div>
+                
+                <!-- Sağ Alt Kutu -->
+                <div class="service-box" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('photos/vucutanalizi.jpg');">
+                    <div class="service-content">
+                        <h3>Vücut Analizi</h3>
+                        <p>Profesyonel ölçüm cihazları ile detaylı vücut analizi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programlar" class="content-section">
+        <div class="content-wrapper">
+            <h2>Programlarımız</h2>
+            <p>Hedeflerinize uygun kişiselleştirilmiş programlar sunuyoruz:</p>
+            
+            <div class="program-cards">
+                <div class="program-card">
+                    <h3>Kişisel Antrenman</h3>
+                    <p>Birebir özel derslerle maksimum verimlilik</p>
+                    <ul>
+                        <li>Kişiye özel antrenman programı</li>
+                        <li>Beslenme danışmanlığı</li>
+                        <li>Haftalık takip ve değerlendirme</li>
+                    </ul>
+                </div>
+                
+                <div class="program-card">
+                    <h3>Grup Dersleri</h3>
+                    <p>Eğlenceli ve motive edici grup çalışmaları</p>
+                    <ul>
+                        <li>Fonksiyonel antrenman</li>
+                        <li>Kardiyo ağırlıklı çalışmalar</li>
+                        <li>Esneklik ve mobilite çalışmaları</li>
+                    </ul>
+                </div>
+                
+                <div class="program-card">
+                    <h3>Online Koçluk</h3>
+                    <p>Evden veya ofisten antrenman imkanı</p>
+                    <ul>
+                        <li>Online birebir seanslar</li>
+                        <li>Kişiye özel video programlar</li>
+                        <li>7/24 destek</li>
+                    </ul>
+                </div>
+                
+                <div class="program-card">
+                    <h3>Vücut Geliştirme</h3>
+                    <p>Kas kütlesi ve güç kazanımı için özel program</p>
+                    <ul>
+                        <li>Kişiye özel antrenman planı</li>
+                        <li>Beslenme danışmanlığı</li>
+                        <li>Düzenli vücut analizi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-banner">
+        <video autoplay muted loop>
+            <source src="videos/3209241-Uhd 3840 2160 25Fps.mp4">
+        </video>
+        <div class="banner-content">
+            <h2>Vizyonumuz</h2>
+            <p>Sağlıklı bir toplum için sporun herkesin hayatının bir parçası olmasını sağlamak.</p>
+        </div>
+    </section>
+
+    <section id="hakkimizda" class="content-section">
+        <div class="content-wrapper">
+            <h2>Mert Fitness Hakkında</h2>
+            <p>2020 yılında İzmir'in Bornova bölgesinde kurulan Mert Fitness, sağlıklı yaşam ve fitness alanında uzmanlaşmış bir kişisel antrenman merkezidir. Her bireyin kendine özgü ihtiyaçları olduğuna inanıyor ve kişiye özel çözümler sunuyoruz.</p>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Bireysel Yaklaşım</h3>
+                    <p>Her üyemizin ihtiyaçlarına özel, kişiye özel çözümler sunuyoruz.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-medal"></i>
+                    <h3>Uzman Kadro</h3>
+                    <p>Uluslararası sertifikalı antrenörlerimizle profesyonel destek.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Hijyen Standartları</h3>
+                    <p>En üst seviye hijyen ve güvenlik önlemleriyle hizmetinizdeyiz.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>İlerleme Takibi</h3>
+                    <p>Düzenli ölçümlerle gelişiminizi takip ediyoruz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="video-banner">
+        <video autoplay muted loop>
+            <source src="videos/6388436-Uhd 3840 2160 25Fps.mp4">
+        </video>
+        <div class="banner-content">
+            <h2>Misyonumuz</h2>
+            <p>Sağlıklı bir yaşam tarzını herkes için erişilebilir kılmak.</p>
+        </div>
+    </section>
+
+    <section id="yorumlar" class="content-section" style="background-color: #f8f9fa;">
+        <div class="content-wrapper">
+            <h2>Müşteri Yorumları</h2>
+            <p class="section-subtitle">Müşterilerimizin deneyimlerini keşfedin</p>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Mert Fitness sayesinde 6 ayda 15 kilo verdim. Koçlar çok ilgili ve profesyonel. Kesinlikle tavsiye ederim!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Ayşe K.</h4>
+                            <p>6 Aylık Üye</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Kişiye özel programları ve esnek çalışma saatleri sayesinde iş çıkışı rahatça gelebiliyorum. Ekip gerçekten çok başarılı."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Mehmet Y.</h4>
+                            <p>3 Aylık Üye</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Doğum sonrası forma girmek için başladım. Hem fiziksel hem de psikolojik olarak kendimi çok daha iyi hissediyorum."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Zeynep T.</h4>
+                            <p>4 Aylık Üye</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Spor yapma alışkanlığı kazanmak için Mert Fitness'ı seçtim. Eğitmenlerin ilgisi ve profesyonel yaklaşımı sayesinde düzenli olarak spor yapmaya başladım. Şimdi kendimi çok daha enerjik ve sağlıklı hissediyorum."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Ahmet D.</h4>
+                            <p>5 Aylık Üye</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="google-reviews" style="margin-top: 3rem; text-align: center;">
+                <a href="#" class="google-reviews-btn">
+                    <i class="fab fa-google"></i> Google'da 4.9/5 (127 Değerlendirme)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="iletisim" class="content-section" style="background-color: rgba(0, 0, 0, 0.9); color: white;">
+        <div class="content-wrapper">
+            <h2>Ücretsiz Danışmanlık</h2>
+            <p>Hedefleriniz ve ihtiyaçlarınız hakkında ücretsiz danışmanlık almak için bize ulaşın.</p>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Bize Ulaşın</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Bornova, İzmir</p>
+                    <p><i class="fas fa-phone"></i> +90 555 123 45 67</p>
+                    <p><i class="fas fa-envelope"></i> info@mertfitness.com</p>
+                    <p><i class="fas fa-clock"></i> Hafta İçi: 08:00 - 22:00</p>
+                    <p><i class="fas fa-clock"></i> Hafta Sonu: 09:00 - 20:00</p>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="Adınız Soyadınız" required>
+                    <input type="tel" placeholder="Telefon Numaranız" required>
+                    <input type="email" placeholder="E-posta Adresiniz" required>
+                    <textarea placeholder="Mesajınız" rows="4" required></textarea>
+                    <button type="submit" class="submit-btn">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="sss" class="content-section">
+        <div class="content-wrapper">
+            <h2>Sıkça Sorulan Sorular</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <h3>Mert Fitness'a üye olmak için herhangi bir deneyim gereksinimi var mı? <span class="faq-toggle">+</span></h3>
+                    <div class="faq-answer">
+                        <p>Hayır! Birebir koçluk paketlerimiz, tüm seviyelere hitap etmektedir. İster yeni başlıyor olun, ister deneyimli bir sporcu, sizin için en uygun paket bulunacaktır. Koçlarımız, seviyenize uygun bir program oluşturur.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Koçluk seansları ne kadar sürer? <span class="faq-toggle">+</span></h3>
+                    <div class="faq-answer">
+                        <p>Her seans, yaklaşık olarak 60-75 dakika sürmektedir. Koçlarımız, sizin ihtiyaçlarınıza ve hedeflerinize göre her seansı kişiselleştirir.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Beslenme programı da alacak mıyım? <span class="faq-toggle">+</span></h3>
+                    <div class="faq-answer">
+                        <p>Evet! Tüm üyelik paketlerimizde, fitness hedeflerinize ulaşmanızı destekleyecek bir beslenme programı da yer almaktadır. Beslenme uzmanımız, bireysel ihtiyaçlarınıza göre planlama yapacaktır.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Online koçluk desteği sunuyor musunuz? <span class="faq-toggle">+</span></h3>
+                    <div class="faq-answer">
+                        <p>Evet, online koçluk hizmeti de sunuyoruz. Seanslarınızı yüz yüze veya online olarak gerçekleştirebilirsiniz. Koçunuzla video konferans yoluyla da iletişim kurarak, programınızı takip edebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: rgba(0, 0, 0, 0.9); color: white; text-align: center; padding: 2rem 0;">
+        <div class="content-wrapper">
+            <p>© 2024 Mert Fitness. Tüm hakları saklıdır.</p>
+            <div class="social-links" style="margin-top: 1rem;">
+                <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: white; margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const item = toggle.closest('.faq-item');
+                item.classList.toggle('active');
+                toggle.textContent = item.classList.contains('active') ? '−' : '+';
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mesajınız başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and add to observer
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Make the first section visible immediately
+        const firstSection = document.querySelector('section');
+        if (firstSection) {
+            firstSection.style.opacity = 1;
+            firstSection.style.transform = 'translateY(0)';
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <style>
+        :root {
+            /* Primary Colors */
+            --chat--color-primary: #2ecc71;
+            --chat--color-primary-shade-50: #27ae60;
+            --chat--color-primary-shade-100: #219653;
+            --chat--color-secondary: var(--chat--header--background);
+            
+            /* Header Styles */
+            --chat--header--background: #2ecc71 !important;
+            --chat--header--color: #ffffff !important;
+            --chat--header--padding: 0.3rem 0.5rem !important;
+            --chat--header--line-height: 1.2 !important;
+            --chat--header--min-height: auto !important;
+            --chat--header--align-items: center !important;
+            
+            /* Heading Styles */
+            --chat--heading--font-size: 1rem !important;
+            --chat--heading--text-align: left !important;
+            
+            /* Subtitle Styles */
+            --chat--subtitle--font-size: 0.85rem !important;
+            --chat--subtitle--line-height: 1.2 !important;
+            --chat--subtitle--margin: 0.1rem 0 0 0 !important;
+        }
+        
+        .chat-window {
+            height: 500px !important;
+            max-height: 80vh !important;
+            min-height: 400px !important;
+            width: 350px !important;
+            max-width: 90vw !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        /* Chat Header Styling */
+        .chat-heading {
+            margin: 0 !important;
+            padding: 0.1rem 0.5rem 0.05rem 0.4rem !important;
+            line-height: 1 !important;
+        }
+
+        .chat-heading h1 {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 1.2rem !important;
+            line-height: 1.2 !important;
+        }
+        
+        .chat-header {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        
+        .chat-header > p:nth-child(2) {
+            margin: 0 !important;
+            padding: 0 0 0.3rem 6px !important;
+            font-size: 0.95rem !important;
+            line-height: 1 !important;
+        }
+        
+        p {
+            font-size: 1.05rem;
+        }
+    </style>
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    
+        createChat({
+            webhookUrl: 'http://localhost:5678/webhook/31b26190-bc98-471d-9ea7-3a0dcecbc650/chat',
+            initialMessages: [
+		'Merhaba!',
+		'Bugün size nasıl yardımcı olabilirim?'
+	],
+	i18n: {
+		en: {
+			title: 'Mert Fitness Destek Hattı',
+			subtitle: "Sizin için 7/24 burdayız.",
+			inputPlaceholder: 'Sorunuzu Yazın...',
+		},
+	},
+        });
+    </script>
+</body>
+</html>
