@@ -147,6 +147,12 @@
             text-align: center;
         }
 
+        .banner-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
         .cta-button {
             display: inline-block;
             background-color: #2ecc71; /* Fresh green color */
@@ -155,10 +161,12 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 20px;
+            margin-top: 0;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            border: 2px solid #2ecc71;
         }
 
         .cta-button:hover {
@@ -960,7 +968,7 @@
     </section>
 
     <section id="hizmetler" class="content-section" style="padding: 0;">
-        <div style="background-color: #f9f9f9; padding: 100px 0; width: 100%;">
+        <div style="background-color: #f9f9f9; width: 100%;">
             <div class="content-wrapper">
                 <h2>Hizmetlerimiz</h2>
                 <p class="section-subtitle">Size özel hazırlanan programlarımızla hedeflerinize ulaşmanızı sağlıyoruz</p>
@@ -1361,6 +1369,14 @@
                 // Chatbot configuration
                 autoShow: false, // Don't show automatically on mobile
                 buttonPosition: 'bottom-right',
+                styles: `
+                    .tally-chat-window h2,
+                    .tally-chat-header h2,
+                    [class*="chat-header"] h2,
+                    [class*="chat-title"] {
+                        color: #f1f1f1 !important;
+                    }
+                `,
                 buttonText: 'Yardımcıya Sor',
                 theme: {
                     button: {
@@ -1368,9 +1384,10 @@
                         textColor: '#fff'
                     },
                     chat: {
-                        backgroundColor: '#fff',
+                        backgroundColor: '#2a2a2a',
                         header: {
                             backgroundColor: '#2ecc71',
+                            titleColor: '#e0e0e0',
                             textColor: '#fff'
                         },
                         message: {
@@ -1406,9 +1423,29 @@
                     const chatButton = document.querySelector('.tally-button');
                     if (chatButton) {
                         chatButton.style.display = 'flex';
+                        
+                        // Add a small delay to ensure the chat widget is fully loaded
+                        setTimeout(() => {
+                            const chatTitle = document.querySelector('.tally-chat-window h2');
+                            if (chatTitle) {
+                                chatTitle.style.color = '#f1f1f1';
+                            }
+                        }, 2000);
                     }
                 }, 1000);
             });
+
+            // Also try to set up a MutationObserver to catch dynamic title changes
+            const observer = new MutationObserver((mutations) => {
+                const chatTitle = document.querySelector('.tally-chat-window h2, [class*="chat-header"] h2');
+                if (chatTitle) {
+                    chatTitle.style.color = '#f1f1f1';
+                    observer.disconnect(); // Stop observing once we've found and styled the title
+                }
+            });
+
+            // Start observing the document with the configured parameters
+            observer.observe(document.body, { childList: true, subtree: true });
         }
         
         // Touch device detection
@@ -1545,6 +1582,18 @@
     </script>
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <style>
+        .chat-layout .chat-body {
+            background-color: #2a2a2a !important;
+        }
+        
+        .chat-window {
+            border: none !important;
+        }
+        
+        .chat-header h2, .tally-chat-title {
+            color: #f1f1f1 !important;
+        }
+
         :root {
             /* Primary Colors */
             --chat--color-primary: #2ecc71;
