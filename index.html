@@ -2,7 +2,10 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2ecc71">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Mert Fitness - Profesyonel Kişisel Antrenman</title>
     <meta name="description" content="Mert Fitness - İzmir'in en iyi kişisel antrenman merkezi. 2020'den beri sağlıklı yaşam için yanınızdayız.">
     <style>
@@ -210,7 +213,8 @@
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 2rem;
+            width: 100%;
         }
 
         .features-grid {
@@ -218,14 +222,25 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin: 3rem 0;
-            max-width: 1000px;
+            max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 2rem;
+            width: 100%;
         }
 
-        @media (max-width: 768px) {
-            .features-grid {
+        @media (max-width: 992px) {
+            .features-grid,
+            .program-cards,
+            .testimonials-container {
                 grid-template-columns: 1fr;
+                padding: 0 1.5rem;
+            }
+            
+            .feature,
+            .program-card,
+            .testimonial-card {
+                margin-bottom: 1.5rem;
             }
         }
 
@@ -250,6 +265,8 @@
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 2rem;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -297,9 +314,19 @@
 
         .contact-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
             margin-top: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
         }
 
         .contact-info {
@@ -360,6 +387,8 @@
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 2rem;
+            width: 100%;
         }
         
         .testimonial-card {
@@ -495,6 +524,89 @@
 
         .feature p {
             line-height: 1.6;
+        }
+
+        /* Mobile Menu Button */
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 10px;
+        }
+
+        .menu-btn__lines,
+        .menu-btn__lines::before,
+        .menu-btn__lines::after {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            display: block;
+            margin: 6px 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn__lines::before,
+        .menu-btn__lines::after {
+            content: '';
+            position: absolute;
+        }
+
+        .menu-btn__lines::before {
+            transform: translateY(-8px);
+        }
+
+        .menu-btn__lines::after {
+            transform: translateY(8px);
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+                position: fixed;
+                right: 20px;
+                top: 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.5s ease;
+                padding: 2rem 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-link {
+                margin: 1.5rem 0 !important;
+                font-size: 1.5rem !important;
+            }
         }
 
         .nav {
@@ -683,8 +795,9 @@
     </nav>
 
     <section id="anasayfa" class="video-banner">
-        <video autoplay muted loop>
-            <source src="videos/5319759-Uhd 3840 2160 25Fps.mp4">
+        <video id="video1" autoplay muted loop playsinline disablePictureInPicture>
+            <source src="videos/5319759-Uhd 3840 2160 25Fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
         </video>
         <div class="banner-content">
             <h1>Mert Fitness</h1>
@@ -814,8 +927,9 @@
     </section>
 
     <section class="video-banner">
-        <video autoplay muted loop>
-            <source src="videos/3209241-Uhd 3840 2160 25Fps.mp4">
+        <video id="video2" autoplay muted loop playsinline disablePictureInPicture>
+            <source src="videos/3209241-Uhd 3840 2160 25Fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
         </video>
         <div class="banner-content">
             <h2>Vizyonumuz</h2>
@@ -855,8 +969,9 @@
 
 
     <section class="video-banner">
-        <video autoplay muted loop>
-            <source src="videos/6388436-Uhd 3840 2160 25Fps.mp4">
+        <video id="video3" autoplay muted loop playsinline disablePictureInPicture>
+            <source src="videos/6388436-Uhd 3840 2160 25Fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
         </video>
         <div class="banner-content">
             <h2>Misyonumuz</h2>
@@ -1032,7 +1147,220 @@
         </div>
     </footer>
 
+    <style>
+        /* Video Banner Styles */
+        .video-banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-banner video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Fallback for mobile devices */
+        @media (max-width: 768px) {
+            .video-banner video {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
     <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.createElement('div');
+            menuBtn.className = 'menu-btn';
+            menuBtn.innerHTML = '<div class="menu-btn__lines"></div>';
+            document.querySelector('nav').appendChild(menuBtn);
+            
+            const menuToggle = document.querySelector('.menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle.addEventListener('click', function() {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.nav') && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Chatbot initialization
+        if (typeof Tally !== 'undefined') {
+            Tally.load("zXjR5j", {
+                // Chatbot configuration
+                autoShow: false, // Don't show automatically on mobile
+                buttonPosition: 'bottom-right',
+                buttonText: 'Yardımcıya Sor',
+                theme: {
+                    button: {
+                        backgroundColor: '#2ecc71',
+                        textColor: '#fff'
+                    },
+                    chat: {
+                        backgroundColor: '#fff',
+                        header: {
+                            backgroundColor: '#2ecc71',
+                            textColor: '#fff'
+                        },
+                        message: {
+                            user: {
+                                backgroundColor: '#2ecc71',
+                                textColor: '#fff'
+                            },
+                            bot: {
+                                backgroundColor: '#f1f1f1',
+                                textColor: '#333'
+                            }
+                        }
+                    }
+                },
+                i18n: {
+                    en: {
+                        title: 'Mert Fitness Destek Hattı',
+                        subtitle: "Sizin için 7/24 burdayız.",
+                        inputPlaceholder: 'Sorunuzu Yazın...',
+                        sendButtonText: 'Gönder',
+                        closeButtonText: 'Kapat',
+                        newMessagesText: 'Yeni mesajınız var',
+                        typingText: 'Yazıyor...',
+                        offlineText: 'Çevrimdışıyız, lütfen daha sonra tekrar deneyin.'
+                    }
+                }
+            });
+            
+            // Show chat button only after page is fully loaded
+            window.addEventListener('load', function() {
+                // Add a small delay to ensure everything is loaded
+                setTimeout(function() {
+                    const chatButton = document.querySelector('.tally-button');
+                    if (chatButton) {
+                        chatButton.style.display = 'flex';
+                    }
+                }, 1000);
+            });
+        }
+        
+        // Touch device detection
+        function isTouchDevice() {
+            return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+        }
+
+        // Video handling for mobile devices
+        function handleVideoPlayback() {
+            const videos = document.querySelectorAll('video');
+            
+            // Play videos when user interacts with the page
+            function playVideos() {
+                videos.forEach(video => {
+                    const playPromise = video.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            // Show play button if autoplay fails
+                            const playButton = document.createElement('button');
+                            playButton.innerHTML = '▶️ Oynat';
+                            playButton.style.position = 'absolute';
+                            playButton.style.top = '50%';
+                            playButton.style.left = '50%';
+                            playButton.style.transform = 'translate(-50%, -50%)';
+                            playButton.style.padding = '10px 20px';
+                            playButton.style.borderRadius = '30px';
+                            playButton.style.border = 'none';
+                            playButton.style.background = 'rgba(46, 204, 113, 0.8)';
+                            playButton.style.color = 'white';
+                            playButton.style.fontSize = '16px';
+                            playButton.style.cursor = 'pointer';
+                            playButton.style.zIndex = '10';
+                            
+                            playButton.addEventListener('click', () => {
+                                video.play();
+                                playButton.remove();
+                            });
+                            
+                            video.parentNode.insertBefore(playButton, video);
+                        });
+                    }
+                });
+            }
+
+            // Try to play videos on page load
+            window.addEventListener('load', playVideos);
+
+            // Try to play videos on first user interaction
+            let userInteracted = false;
+            const interactionEvents = ['click', 'touchstart', 'keydown'];
+            
+            interactionEvents.forEach(event => {
+                window.addEventListener(event, () => {
+                    if (!userInteracted) {
+                        userInteracted = true;
+                        playVideos();
+                    }
+                }, { once: true });
+            });
+        }
+
+        // Initialize video handling
+        document.addEventListener('DOMContentLoaded', handleVideoPlayback);
+        
+        // Add touch class to body if touch device
+        if (isTouchDevice()) {
+            document.body.classList.add('touch-device');
+        }
+        
+        // Prevent zoom on double-tap for buttons and inputs
+        document.addEventListener('dblclick', function(e) {
+            if (['BUTTON', 'INPUT', 'A', 'TEXTAREA'].includes(e.target.tagName)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
         // FAQ Toggle
         document.querySelectorAll('.faq-toggle').forEach(toggle => {
             toggle.addEventListener('click', () => {
