@@ -91,6 +91,7 @@
             line-height: 1.4 !important;
             padding: 5px 8px !important;
             margin: 4px 0 !important;
+            color: white !important;
         }
     </style>
     <style>
@@ -426,7 +427,7 @@
         
         .testimonial-text {
             font-style: italic;
-            color: #555;
+            color: #e0e0e0;
             line-height: 1.6;
             margin-bottom: 1.5rem;
         }
@@ -513,6 +514,10 @@
             color: #2ecc71;
             margin-bottom: 1rem;
             display: block;
+        }
+
+        #neden-biz {
+            padding-bottom: 50px;
         }
 
         #neden-biz .feature h3,
@@ -874,14 +879,6 @@
         .contact-form input::placeholder,
         .contact-form textarea::placeholder {
             color: #aaaaaa !important;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            color: #e0e0e0 !important;
-        }
-        
-        p {
-            color: #cccccc !important;
         }
         
         .section-subtitle {
@@ -1583,15 +1580,16 @@
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <style>
         .chat-layout .chat-body {
-            background-color: #2a2a2a !important;
+            background-color: #2a2a2a  !important;
+        }
+
+        .chat-layout .chat-footer {
+            color: #ffffff;
+            border-top: none;
         }
         
         .chat-window {
             border: none !important;
-        }
-        
-        .chat-header h2, .tally-chat-title {
-            color: #f1f1f1 !important;
         }
 
         :root {
@@ -1600,6 +1598,7 @@
             --chat--color-primary-shade-50: #27ae60;
             --chat--color-primary-shade-100: #219653;
             --chat--color-secondary: var(--chat--header--background);
+            --chat--color-light: #2ecc71;
             
             /* Header Styles */
             --chat--header--background: #2ecc71 !important;
@@ -1617,6 +1616,10 @@
             --chat--subtitle--font-size: 0.85rem !important;
             --chat--subtitle--line-height: 1.2 !important;
             --chat--subtitle--margin: 0.1rem 0 0 0 !important;
+
+            --chat--message--bot--background: #333333 ;
+            --chat--message--user--background: #2ecc71;
+            --chat--message--color: #f1f1f1
         }
         
         .chat-window {
@@ -1657,6 +1660,11 @@
         
         p {
             font-size: 1.05rem;
+        }
+
+        .chat-powered-by::after {
+            content: "© 2024 Mert Fitness. Tüm hakları saklıdır. Mobil websitesindeki müşterilerimiz destek hattına masaüstü websitesinden ulaşabilir.";
+
         }
     </style>
     <script type="module">
