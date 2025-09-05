@@ -1786,36 +1786,106 @@
     <script src="https://tally.so/next/embed.js" async></script>
     
     <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-    
-        createChat({
-            webhookUrl: 'http://localhost:5678/webhook/31b26190-bc98-471d-9ea7-3a0dcecbc650/chat',
-            initialMessages: [
-		'Sohbeti başlatmak için mesajınızı yazın.',
-	],
-	i18n: {
-		en: {
-			title: 'Mert Fitness Destek Hattı',
-			subtitle: "Sizin için 7/24 burdayız.",
-			inputPlaceholder: 'Mesajınızı Yazın...',
-		},
-	},
-        });
+        // Mobil cihaz kontrolü
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
-        // Mobil cihaz tespiti ve ayarları
-        function isMobileDevice() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+        // Chat başlatma fonksiyonu
+        async function initializeChat() {
+            try {
+                const { createChat } = await import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js');
+                
+                createChat({
+                    webhookUrl: 'http://localhost:5678/webhook/31b26190-bc98-471d-9ea7-3a0dcecbc650/chat',
+                    initialMessages: [
+                        'Sohbeti başlatmak için mesajınızı yazın.',
+                    ],
+                    i18n: {
+                        en: {
+                            title: 'Mert Fitness Destek Hattı',
+                            subtitle: "Sizin için 7/24 burdayız.",
+                            inputPlaceholder: 'Mesajınızı Yazın...',
+                        },
+                    },
+                    // Mobil için özel ayarlar
+                    mode: isMobile ? 'window' : 'fullscreen',
+                    showWelcomeScreen: true,
+                    target: '#n8n-chat',
+                    // Mobil viewport ayarları
+                    ...(isMobile && {
+                        defaultHeight: '400px',
+                        defaultWidth: '100%',
+                        position: 'bottom-right'
+                    })
+                });
+                
+                console.log('Chat başarıyla başlatıldı');
+            } catch (error) {
+                console.error('Chat başlatma hatası:', error);
+                // Fallback: Basit contact form göster
+                showFallbackContact();
+            }
         }
         
-        // Mobil için temel uyumluluk
-        if (isMobileDevice()) {
-            document.addEventListener('DOMContentLoaded', function() {
-                // Mobil cihazlarda chatbot'un çalışması için temel ayarlar
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                }
-            });
+        // Fallback contact form
+        function showFallbackContact() {
+            const fallbackHTML = `
+                <div id="fallback-chat" style="
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    width: 300px;
+                    background: white;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                    padding: 20px;
+                    z-index: 9999;
+                    display: none;
+                ">
+                    <h3 style="color: #2ecc71; margin-bottom: 10px;">Mert Fitness Destek</h3>
+                    <p style="font-size: 14px; margin-bottom: 15px;">WhatsApp üzerinden bize ulaşabilirsiniz:</p>
+                    <a href="https://wa.me/905555555555" target="_blank" style="
+                        background: #25D366;
+                        color: white;
+                        padding: 10px 20px;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        display: inline-block;
+                        font-weight: bold;
+                    ">WhatsApp'ta Yaz</a>
+                    <button onclick="document.getElementById('fallback-chat').style.display='none'" style="
+                        position: absolute;
+                        top: 5px;
+                        right: 10px;
+                        background: none;
+                        border: none;
+                        font-size: 18px;
+                        cursor: pointer;
+                    ">×</button>
+                </div>
+                <button onclick="document.getElementById('fallback-chat').style.display='block'" style="
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: #2ecc71;
+                    border: none;
+                    color: white;
+                    font-size: 24px;
+                    cursor: pointer;
+                    z-index: 9998;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                ">💬</button>
+            `;
+            document.body.insertAdjacentHTML('beforeend', fallbackHTML);
+        }
+        
+        // Chat'i başlat
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeChat);
+        } else {
+            initializeChat();
         }
     </script>
 </body>
