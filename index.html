@@ -41,8 +41,8 @@
         .chat-message:not([data-from]):not(.chat-message-from-bot) {
             font-size: 0.75em !important;
             line-height: 1.4 !important;
-            padding: 10px 15px !important;
-            margin: 8px 0 !important;
+            padding: 5px 8px !important;
+            margin: 0px 0 !important;
             max-width: 85%;
             margin-left: auto !important;
             margin-right: 10px !important;
@@ -58,6 +58,19 @@
             font-size: 0.75em !important;
         }
 
+        /* Additional user message targeting */
+        div.chat-message:nth-child(3),
+        div.chat-message[data-from='user'],
+        .chat-message[data-from='user'],
+        .chat-message:not([data-from='bot']):not(.chat-message-from-bot) {
+            margin-top: 4px !important;
+            margin-bottom: 4px !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+        }
+
         /* Clear floats */
         .chat-message::after {
             content: '';
@@ -67,14 +80,20 @@
 
         .chat-input {
             font-size: 1.2em !important;
-            padding: 6px 10px !important;
+            border-top: 1px solid #1a1a1a !important;
             color: white !important;
             clear: both;
         }
 
         .chat-inputs textarea {
             color: white !important;
+            background-color: #2a2a2a !important;
         }
+
+        .chat-input-send-button[data-v-de5e7961], .chat-input-file-button[data-v-de5e7961] {
+            background: #2ecc71 !important;
+        }
+
 
         .chat-message-avatar {
             width: 24px !important;
@@ -1403,7 +1422,7 @@
                     en: {
                         title: 'Mert Fitness Destek Hattı',
                         subtitle: "Sizin için 7/24 burdayız.",
-                        inputPlaceholder: 'Sorunuzu Yazın...',
+                        inputPlaceholder: 'Mesajınızı Yazın...',
                         sendButtonText: 'Gönder',
                         closeButtonText: 'Kapat',
                         newMessagesText: 'Yeni mesajınız var',
@@ -1598,7 +1617,6 @@
             --chat--color-primary-shade-50: #27ae60;
             --chat--color-primary-shade-100: #219653;
             --chat--color-secondary: var(--chat--header--background);
-            --chat--color-light: #2ecc71;
             
             /* Header Styles */
             --chat--header--background: #2ecc71 !important;
@@ -1621,7 +1639,7 @@
             --chat--message--user--background: #2ecc71;
             --chat--message--color: #f1f1f1
         }
-        
+
         .chat-window {
             height: 500px !important;
             max-height: 80vh !important;
@@ -1673,14 +1691,13 @@
         createChat({
             webhookUrl: 'http://localhost:5678/webhook/31b26190-bc98-471d-9ea7-3a0dcecbc650/chat',
             initialMessages: [
-		'Merhaba!',
-		'Bugün size nasıl yardımcı olabilirim?'
+		'Sohbeti başlatmak için mesajınızı yazın.',
 	],
 	i18n: {
 		en: {
 			title: 'Mert Fitness Destek Hattı',
 			subtitle: "Sizin için 7/24 burdayız.",
-			inputPlaceholder: 'Sorunuzu Yazın...',
+			inputPlaceholder: 'Mesajınızı Yazın...',
 		},
 	},
         });
