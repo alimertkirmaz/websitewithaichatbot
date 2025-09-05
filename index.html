@@ -540,11 +540,11 @@
             font-size: 0.9rem;
         }
         
+        .author-info {
+            text-align: center;
+        }
+        
         @media (max-width: 480px) {
-            .author-info {
-                text-align: center;
-            }
-            
             .author-info h4 {
                 font-size: 1rem;
             }
@@ -789,15 +789,23 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
+        .faq-item {
+            cursor: pointer;
+        }
+        
         .faq-item h3 {
             margin: 0;
             padding: 1.5rem;
-            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 1.1rem;
             color: white;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-item:hover h3 {
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         /* Services Section Styles */
@@ -1629,9 +1637,9 @@
             }
         }, { passive: false });
         // FAQ Toggle
-        document.querySelectorAll('.faq-toggle').forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const item = toggle.closest('.faq-item');
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const toggle = item.querySelector('.faq-toggle');
                 item.classList.toggle('active');
                 toggle.textContent = item.classList.contains('active') ? '−' : '+';
             });
