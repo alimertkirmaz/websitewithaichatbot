@@ -1697,9 +1697,9 @@
         }
 
         .chat-layout .chat-footer {
-            color: #ffffff !important;
-            border-top: none !important;
-            background-color: #2ecc71 !important;
+            color: #ffffff;
+            border-top: none;
+            background-color: #2ecc71;
         }
         
         .chat-window {
@@ -1783,23 +1783,8 @@
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
     
-        // Mobil cihaz tespiti
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
-        // Webhook URL'ini dinamik olarak ayarla
-        function getWebhookUrl() {
-            if (isMobile) {
-                // Mobil cihazlar için bilgisayarınızın IP adresini kullanın
-                // Bu IP adresini bilgisayarınızın gerçek IP'si ile değiştirin
-                const computerIP = window.location.hostname === 'localhost' ? '192.168.1.105' : window.location.hostname;
-                return `http://${computerIP}:5678/webhook/31b26190-bc98-471d-9ea7-3a0dcecbc650/chat`;
-            } else {
-                return 'http://localhost:5678/webhook/31b26190-bc98-471d-9ea7-3a0dcecbc650/chat';
-            }
-        }
-    
         createChat({
-            webhookUrl: getWebhookUrl(),
+            webhookUrl: 'http://localhost:5678/webhook/31b26190-bc98-471d-9ea7-3a0dcecbc650/chat',
             initialMessages: [
 		'Sohbeti başlatmak için mesajınızı yazın.',
 	],
