@@ -397,11 +397,39 @@
         }
 
         .submit-btn:hover {
-            background-color: #27ae60; /* Darker green on hover */
+            background-color: #27ae60;
             transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .submit-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Testimonial Styles */
         .section-subtitle {
             color: #666;
@@ -1318,12 +1346,12 @@
 
     <section id="iletisim" class="content-section" style="background-color: rgba(0, 0, 0, 0.9); color: white;">
         <div class="content-wrapper">
-            <h2>Ücretsiz Danışmanlık</h2>
+            <h2>İletişim</h2>
             <p>Hedefleriniz ve ihtiyaçlarınız hakkında ücretsiz danışmanlık almak için bize ulaşın.</p>
             
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3>Bize Ulaşın</h3>
+                    <h3 style="padding-bottom: 32px;">Bize Ulaşın</h3>
                     <p><i class="fas fa-map-marker-alt"></i> Bornova, İzmir</p>
                     <p><i class="fas fa-phone"></i> +90 555 123 45 67</p>
                     <p><i class="fas fa-envelope"></i> info@mertfitness.com</p>
@@ -1331,12 +1359,13 @@
                     <p><i class="fas fa-clock"></i> Hafta Sonu: 09:00 - 20:00</p>
                 </div>
                 
-                <form class="contact-form" id="contactForm">
-                    <input type="text" placeholder="Adınız Soyadınız" required>
-                    <input type="tel" placeholder="Telefon Numaranız" required>
-                    <input type="email" placeholder="E-posta Adresiniz" required>
-                    <textarea placeholder="Mesajınız" rows="4" required></textarea>
+                <form class="contact-form" id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <input type="text" name="name" placeholder="Adınız Soyadınız" required>
+                    <input type="tel" name="phone" placeholder="Telefon Numaranız" required>
+                    <input type="email" name="email" placeholder="E-posta Adresiniz" required>
+                    <textarea name="message" placeholder="Mesajınız" rows="4" required></textarea>
                     <button type="submit" class="submit-btn">Gönder</button>
+                    <div id="form-message" class="form-message"></div>
                 </form>
             </div>
         </div>
@@ -1640,13 +1669,89 @@
                 toggle.textContent = item.classList.contains('active') ? '−' : '+';
             });
         });
-        
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Mesajınız başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.');
-            this.reset();
-        });
+
+        // Form handler with validation and EmailJS
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const messageDiv = document.getElementById('form-message');
+            const submitBtn = form.querySelector('.submit-btn');
+            
+            // Get form values
+            const name = form.name.value.trim();
+            const phone = form.phone.value.trim();
+            const email = form.email.value.trim();
+            const message = form.message.value.trim();
+            
+            // Validation
+            if (!name || !phone || !email || !message) {
+                messageDiv.className = 'form-message error';
+                messageDiv.textContent = 'Lütfen tüm alanları doldurun.';
+                messageDiv.style.display = 'block';
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                messageDiv.className = 'form-message error';
+                messageDiv.textContent = 'Geçerli bir e-posta adresi girin.';
+                messageDiv.style.display = 'block';
+                return;
+            }
+            
+            // Show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Gönderiliyor...';
+            messageDiv.style.display = 'none';
+            
+            // Send email via EmailJS
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                phone: phone,
+                message: message,
+                to_email: 'alimertkirmaz2000bjk@gmail.com'
+            };
+            
+            // EmailJS configuration (replace with your actual keys)
+            const SERVICE_ID = 'service_cw0nwsa';
+            const TEMPLATE_ID = 'template_moyxbil';
+            const PUBLIC_KEY = '3vC6NK5unqEXNyXsc';
+            
+            // Try to send email
+            if (typeof emailjs !== 'undefined' && SERVICE_ID !== 'YOUR_SERVICE_ID') {
+                emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+                    .then(() => {
+                        messageDiv.className = 'form-message success';
+                        messageDiv.textContent = 'Mesajınız başarıyla gönderildi! En kısa sürede size döneceğiz.';
+                        messageDiv.style.display = 'block';
+                        form.reset();
+                    })
+                    .catch((error) => {
+                        console.error('EmailJS Error:', error);
+                        messageDiv.className = 'form-message error';
+                        messageDiv.textContent = 'Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.';
+                        messageDiv.style.display = 'block';
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Gönder';
+                    });
+            } else {
+                // Demo mode - EmailJS not configured yet
+                setTimeout(() => {
+                    messageDiv.className = 'form-message success';
+                    messageDiv.textContent = 'Demo: Mesajınız alındı! (EmailJS kurulumu sonrası gerçek e-posta gönderimi aktif olacak)';
+                    messageDiv.style.display = 'block';
+                    form.reset();
+                    
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Gönder';
+                }, 1000);
+            }
+        }
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1780,6 +1885,9 @@
 
         }
     </style>
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
     
